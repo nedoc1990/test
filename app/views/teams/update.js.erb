@@ -1,0 +1,14 @@
+<% if @team.errors.empty? %>
+  $("#update_team_<%= @team.id %>").fadeToggle(function() {
+    $(".team_information").fadeToggle();
+  });
+  <% if @team.description.blank? %>
+   $('.description').html("No description has been posted yet");
+  <% else %>
+    $('.description').html("<%= escape_javascript(markdown(@team.description)) %>");
+  <% end %>
+  $('.team_name').html("<%= escape_javascript(@team.name) %>");
+<% else %>
+  $('#float-alert p').html("<%= escape_javascript(@team.errors.full_messages.join('<br/>')) %>");
+  $('#float-alert').fadeIn(setTimeOutAlertDelay());
+<% end %>
